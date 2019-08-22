@@ -51,7 +51,17 @@ const User = ({ errors, touched, values, status }) => {
                         />
 
                     <button type="button" name="button">Submit</button>
+
+                    <p>User info below: </p>
                 </Form>
+                
+                {users.map(user => (
+                    <ul key={user.id}>
+                        <li>Name: {user.name}</li>
+                        <li>Email: {user.email}</li>
+                        <li>Password: {user.password}</li>
+                    </ul>
+                    ))}
         </div>
     );
   };
@@ -67,9 +77,17 @@ const User = ({ errors, touched, values, status }) => {
       },
 
       validationSchema: Yup.object().shape({
-        name: Yup.string().required("Must put in a name"),
-        email: Yup.string().required("Must put in a email"),
-        password: Yup.string().required("Must put in a password")
+        name: Yup.string()
+            .required("Must put in a name"),
+        email: Yup.string()
+            .email("E-mail is not valid")
+            .required("E-mail is required"),
+        password: Yup.string()
+            .min(5, "Password must be at least 5 characters and no more than 10")
+            .max(10, "Your password is over 10 characters!")
+            .required("Must put in a password")
+        //checkbox: Yup.bool()
+              
       }),
 
       handleSubmit(values, { setStatus}) {
