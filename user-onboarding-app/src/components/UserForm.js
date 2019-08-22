@@ -31,4 +31,4 @@ const User = ({ errors, touched, values, status }) => {
 
   })(User);
 
-export default User;
+export default FormikUser;
