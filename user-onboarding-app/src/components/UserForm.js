@@ -85,8 +85,16 @@ const User = ({ errors, touched, values, status }) => {
         password: Yup.string()
             .min(5, "Password must be at least 5 characters and no more than 10")
             .max(10, "Your password is over 10 characters!")
-            .required("Must put in a password")
-        //checkbox: Yup.bool()
+            .required("Must put in a password"),
+        checkbox: Yup.bool()
+            .test(
+                'checkbox',
+                'You must agree to our Terms of Service',
+                value => value === true
+                )
+                .required(
+                    'You must agree to our Terms of Service'
+                ),
               
       }),
 
