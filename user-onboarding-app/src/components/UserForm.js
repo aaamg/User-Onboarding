@@ -4,15 +4,46 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 
 const User = ({ errors, touched, values, status }) => {
+
+    
     return(
-        <div classname="user-form">
+        <div className="user-form">
             <h1>User Form</h1>
                 <Form>
-                    <Field type="text" name="name" placeholder="Your Name"></Field>
-                    <Field type="text" name="email" placeholder="Email"></Field>
-                    <Field type="text" name="password" placeholder="Password"></Field>
+                    <Field 
+                        type="text" 
+                        name="name" 
+                        placeholder="Your Name" 
+                        />
+                    {touched.name && errors.name && (
+                    <p className="error">{errors.name}</p>
+                    )}
+
+                    <Field 
+                        type="text" 
+                        name="email" 
+                        placeholder="Email" 
+                        />
+                    {touched.email && errors.email && (
+                    <p className="error">{errors.email}</p>
+                    )}
+
+                    <Field 
+                        type="text" 
+                        name="password" 
+                        placeholder="Password" 
+                        />
+                    {touched.password && errors.password && (
+                    <p className="error">{errors.password}</p>
+                    )}
+
                     <div>Check this box when you agree to our TOS.</div>
-                    <Field type="checkbox" name="checkbox"></Field>
+                    <Field 
+                        type="checkbox" 
+                        name="checkbox"
+                        checked={values.checkbox} 
+                        />
+
                     <button type="button" name="button">Submit</button>
                 </Form>
         </div>
@@ -28,6 +59,14 @@ const User = ({ errors, touched, values, status }) => {
               checkbox: checkbox || false,
           };
       },
+
+      validationSchema: Yup.object().shape({
+        name: Yup.string().required("Must put in a name"),
+        email: Yup.string().required("Must put in a email"),
+        password: Yup.string().required("Must put in a password")
+      }),
+
+      //handleSubmit(values)
 
   })(User);
 
