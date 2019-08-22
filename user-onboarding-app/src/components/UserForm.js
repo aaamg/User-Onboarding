@@ -4,7 +4,13 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 
 const User = ({ errors, touched, values, status }) => {
-
+    const [users, setUsers] = useState([]);
+    console.log('this is touched: ', touched);
+    useEffect(() => {
+        if (status) {
+          setUsers([...users, status]);
+        }
+      }, [status]);
     
     return(
         <div className="user-form">
@@ -66,7 +72,14 @@ const User = ({ errors, touched, values, status }) => {
         password: Yup.string().required("Must put in a password")
       }),
 
-      //handleSubmit(values)
+      handleSubmit(values, { setStatus}) {
+          axios.post('https://reqres.in/api/users/', values)
+          .then(res => {
+              console.log(res);
+              setStatus(res.data)
+          })
+          .catch(err => console.log(err.response));
+      }
 
   })(User);
 
