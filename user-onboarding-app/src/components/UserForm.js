@@ -5,13 +5,17 @@ import * as Yup from "yup";
 
 const User = ({ errors, touched, values, status }) => {
     const [users, setUsers] = useState([]);
-    console.log('this is touched: ', touched);
+    //console.log('this is touched: ', touched);
+    // console.log(values);
+
     useEffect(() => {
         if (status) {
           setUsers([...users, status]);
         }
       }, [status]);
-    
+
+
+
     return(
         <div className="user-form">
             <h1>User Form</h1>
@@ -50,7 +54,10 @@ const User = ({ errors, touched, values, status }) => {
                         checked={values.checkbox} 
                         />
 
-                    <button type="button" name="button">Submit</button>
+                    <button 
+                        type="submit"
+                        name="button"
+                        >Submit</button>
 
                     <p>User info below: </p>
                 </Form>
@@ -98,15 +105,38 @@ const User = ({ errors, touched, values, status }) => {
               
       }),
 
-      handleSubmit(values, { setStatus}) {
-          axios.post('https://reqres.in/api/users/', values)
-          .then(res => {
-              console.log(res);
-              setStatus(res.data)
-          })
-          .catch(err => console.log(err.response));
-      }
+        handleSubmit(values, { setStatus }) {
+            axios.post('https://reqres.in/api/users/', values)
+            .then(res => {
+                console.log("SUBMIT FIRING");
+                setStatus(res.data);
+            })
+            .catch(err => console.log(err.response));
+        }
 
   })(User);
 
 export default FormikUser;
+
+//trying to get submit to work below vvvvv 
+
+// handleSubmit(values, { setStatus}) {
+//     axios.post('https://reqres.in/api/users/', values)
+//     .then(res => {
+//         console.log(res);
+//         setStatus(res)
+//     })
+//     .catch(err => console.log(err.response));
+// }
+
+
+// handleSubmit(values, { setSubmitting, resetForm, setStatus }) {
+//     axios.post('https://reqres.in/api/users/', values)
+//     .then(res => {
+//         console.log("is daaaata commmming",res);
+//         setStatus(res.data);
+//         resetForm();
+//         setSubmitting(true)
+//     })
+//     .catch(err => console.log(err.response));
+//}

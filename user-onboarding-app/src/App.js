@@ -5,6 +5,7 @@ import User from './components/UserForm';
 import './index.css';
 
 function App() {
+  
   return (
     <div className="App">
       <User />
@@ -16,4 +17,3 @@ export default App;
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-
